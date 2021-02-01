@@ -1,10 +1,13 @@
-import { IObjectValue } from "./iobjectvalue";
+import { IObjectValue } from "./objectvalue.interface";
 import { v4 as uuidv4 } from 'uuid';
 import { EmptyIdDomainError } from "./errors";
+import { IsDate, IsNotEmpty } from "class-validator";
 
 export class Id implements IObjectValue{
-    id:string
     
+    @IsNotEmpty()
+    id:string
+
     private constructor(id:string){
         if(!id)
             throw EmptyIdDomainError;

@@ -1,14 +1,27 @@
+import { IsDate, IsNotEmpty, IsOptional } from "class-validator"
 import { Id } from "./id"
-import { IModel } from "./imodel"
 
-export abstract class Model implements IModel {
+export type ModelConstructorParams = {
+    id: string, 
+    createdAt?:Date, 
+    deletedAt?:Date
+}
+
+export abstract class Model{
+    @IsNotEmpty()
     id:Id
 
-    private constructor(id: Id = Model.generateId()){
-        this.id = id
+    @IsDate()
+    createdAt:Date
+    
+    @IsDate()
+    @IsOptional()
+    deletedAt?:Date
+
+    protected constructor(params: ModelConstructorParams){
+        this.id = Id.create(params.id)
+        this.createdAt = params.createdAt ?? new Date();
+        this.deletedAt = params.deletedAt ?? null;
     }
 
-    static generateId(): Id{
-        return Id.create()
-    }
 }
