@@ -1,11 +1,11 @@
 import { User, UserModelConstructorParams } from './user.model';
-import { v4 as uuidv4 } from 'uuid';
 import { validate } from 'class-validator';
+import { Uuid } from 'src/infra/uuid.helper';
 describe('User Model (domain)', () => {
   it('should pass if params satify - class-validator', () => {
 
     const params:UserModelConstructorParams = {
-        id: uuidv4(),
+        id: Uuid.generate(),
         name: "Vinicius",
         email: "vinicius@ferreirawk@gmail.com" 
     }
@@ -16,7 +16,7 @@ describe('User Model (domain)', () => {
   it('should throw exception if wrong email - class-validator', async () => {
 
     const params:UserModelConstructorParams = {
-        id: uuidv4(),
+        id: Uuid.generate(),
         name: "Vinicius",
         email: "vinicius@ferreirawk@gmail.com" 
     }

@@ -1,7 +1,7 @@
 import { IObjectValue } from "./objectvalue.interface";
-import { v4 as uuidv4 } from 'uuid';
 import { EmptyIdDomainError } from "./errors";
 import { IsDate, IsNotEmpty } from "class-validator";
+import { Uuid } from "src/infra/uuid.helper";
 
 export class Id implements IObjectValue{
     
@@ -14,7 +14,7 @@ export class Id implements IObjectValue{
         this.id = id
     }
     
-    static create(id:string = uuidv4()){
+    static create(id:string = Uuid.generate()()){
         return new Id(id)
     }
 }

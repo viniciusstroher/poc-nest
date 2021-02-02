@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
+import { DatabaseProviders } from './database.providers';
 // import { sequelizeProvider } from './sequelize.provider';
 
 @Module({
-  // providers: [sequelizeProvider],
-  // exports: [sequelizeProvider],
+  providers: [...DatabaseProviders],
+  exports: [...DatabaseProviders]
+],
 })
 export class DatabaseModule {}
