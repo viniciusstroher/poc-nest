@@ -4,6 +4,7 @@ import { User, UserModelConstructorParams } from 'src/domain/model/user.model';
 import { IUserRepository } from 'src/domain/repository/user.repository.interface';
 import { CreateUserParam } from './user.service.dto';
 import { Uuid } from 'src/infra/uuid.helper';
+import { UserModelValidateError } from 'src/domain/common/errors';
 
 @Injectable()
 export class UserService {
@@ -15,15 +16,16 @@ export class UserService {
     async createUser(params:CreateUserParam):Promise<void>{
         const paramsModel:UserModelConstructorParams = {
             id: Uuid.generate(),
-            name: "Vinicius",
-            email: "vinicius@ferreirawk@gmail.com" 
+            name: params.name,
+            email: params.email 
         }
         
         const user:User = new User(paramsModel)
         const errors:any[] = await validate(user)
         
         if(!errors.length){
-        
+            //se der error adicionar um novo erro
+            throw new UserModelValidateError(paramsModel, errors)
         }
         
         this.userRepo.save(user);
