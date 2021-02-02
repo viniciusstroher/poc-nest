@@ -21,11 +21,11 @@ export class UserService {
         }
         
         const user:User = new User(paramsModel)
-        const errors:any[] = await validate(user)
+        const validateUserErrors:any[] = await validate(user)
         
-        if(!errors.length){
+        if(!validateUserErrors.length){
             //se der error adicionar um novo erro
-            throw new UserModelValidateError(paramsModel, errors)
+            throw new UserModelValidateError(paramsModel, validateUserErrors)
         }
         
         this.userRepo.save(user);
