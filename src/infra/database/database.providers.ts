@@ -1,5 +1,6 @@
 import { Provider } from "@nestjs/common";
 import { createConnection } from "typeorm";
+import { UserModelOrm } from "./orm/user.model.orm";
 
 export const DatabaseProviders:any  = [
     {
@@ -7,9 +8,7 @@ export const DatabaseProviders:any  = [
         useFactory: async () => await createConnection({
           type: 'sqlite',
           database: 'db.sqlite3',
-          entities: [
-            //   __dirname + '/../**/*.entity{.ts,.js}',
-          ],
+          entities: [ UserModelOrm ],
           synchronize: true,
         }),
     }

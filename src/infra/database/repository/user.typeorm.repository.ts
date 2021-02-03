@@ -38,8 +38,8 @@ export class UserTypeOrmRepository implements IUserRepository{
                 newUserModelOrm.id = user.id.getId()
                 newUserModelOrm.name = user.name
                 newUserModelOrm.email = user.email
-                newUserModelOrm.created_at = user.createdAt.toISOString()
-                newUserModelOrm.deleted_at = user.deletedAt.toISOString()
+                newUserModelOrm.created_at = user.createdAt ? user.createdAt.toISOString() : null
+                newUserModelOrm.deleted_at = user.deletedAt ? user.deletedAt.toISOString() : null
 
                 await entityManager.save(newUserModelOrm)
 

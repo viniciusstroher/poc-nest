@@ -28,15 +28,10 @@ describe('UserService', () => {
       
     }).compile();
 
-    
-    // repository = getRepository(UserModelOrm, "DATABASE_SQLITE");
-    // console.log(repository)
-    // service = new UserService(repository);
-    
     service = module.get<UserService>(UserService);
   });
 
-  it('shoul create user in user service', async () => {
+  it('should create user in user service', async () => {
     const params:CreateUserParam = {
       name: "Vinicius",
       email: "viniciusferreirawk@gmail.com"

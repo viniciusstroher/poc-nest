@@ -13,9 +13,9 @@ export class UserModelOrm {
   @Column()
   email: string;
 
-  @Column()
+  @Column({nullable: true })
   created_at: string;
 
-  @Column()
+  @Column({nullable: true })
   deleted_at: string;
 }
