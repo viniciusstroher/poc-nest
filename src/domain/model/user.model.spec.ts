@@ -1,6 +1,8 @@
 import { User, UserModelConstructorParams } from './user.model';
 import { validate } from 'class-validator';
-import { Uuid } from 'src/infra/uuid.helper';
+import { Uuid } from '../../infra/uuid.helper';
+
+
 describe('User Model (domain)', () => {
   it('should pass if params satify - class-validator', () => {
 

@@ -2,7 +2,6 @@ export class EmptyIdDomainError extends Error{
     constructor(){
         super('The model cant instantiate with null id value.')
         this.name = "EmptyIdDomainError";
-
     }
 }
 
@@ -16,3 +15,11 @@ export class UserModelValidateError extends Error{
         this.validationErrorsClassValidator = validationErrorsClassValidator;
     }
 }
+
+export class UserModelAlreadyExistsError extends Error{
+    constructor(){
+        super('This user already exists try other name and email')
+        this.name = "UserModelAlreadyExistsError";
+    }
+}
+

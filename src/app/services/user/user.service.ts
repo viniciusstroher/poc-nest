@@ -1,15 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { validate } from 'class-validator';
-import { User, UserModelConstructorParams } from 'src/domain/model/user.model';
-import { IUserRepository } from 'src/domain/repository/user.repository.interface';
+import { User, UserModelConstructorParams } from '../../../domain/model/user.model';
+import { IUserRepository } from '../../../domain/repository/user.repository.interface';
 import { CreateUserParam } from './user.service.dto';
-import { Uuid } from 'src/infra/uuid.helper';
-import { UserModelValidateError } from 'src/domain/common/errors';
+import { Uuid } from '../../../infra/uuid.helper';
+import { UserModelAlreadyExistsError, UserModelValidateError } from '../../../domain/common/errors'; 
+import { UserMongooseRepository } from 'src/infra/database/repository/user.mongoose.repository';
 
 @Injectable()
 export class UserService {
     userRepo:IUserRepository
-    constructor(userRepo:IUserRepository){
+
+    constructor(@Inject('USER_REPOSITORY') userRepo:IUserRepository){
         this.userRepo = userRepo
     }
 
@@ -22,13 +24,17 @@ export class UserService {
         
         const user:User = new User(paramsModel)
         const validateUserErrors:any[] = await validate(user)
-        
-        if(!validateUserErrors.length){
+
+        if(validateUserErrors.length > 0){
             //se der error adicionar um novo erro
             throw new UserModelValidateError(paramsModel, validateUserErrors)
         }
         
-        this.userRepo.save(user);
-        
+        const userExists:boolean = await this.userRepo.exists(user);
+        if(userExists){
+            throw new UserModelAlreadyExistsError()
+        }
+
+        await this.userRepo.save(user);
     }
 }
