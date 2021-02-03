@@ -17,4 +17,6 @@ export class Id implements IObjectValue{
     static create(id:string = Uuid.generate()()){
         return new Id(id)
     }
+
+    getId = () => this.id
 }
