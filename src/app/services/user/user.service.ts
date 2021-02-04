@@ -11,9 +11,7 @@ import { UserMongooseRepository } from 'src/infra/database/repository/user.mongo
 export class UserService {
     userRepo:IUserRepository
 
-    constructor(@Inject('USER_REPOSITORY') userRepo:IUserRepository){
-        this.userRepo = userRepo
-    }
+    constructor(@Inject('USER_REPOSITORY') userRepo:IUserRepository){}
 
     async createUser(params:CreateUserParam):Promise<void>{
         const paramsModel:UserModelConstructorParams = {
@@ -30,6 +28,16 @@ export class UserService {
             throw new UserModelValidateError(paramsModel, validateUserErrors)
         }
         
+        const userExists:boolean = await this.userRepo.exists(user);
+        if(userExists){
+            throw new UserModelAlreadyExistsError()
+        }
+
+        await this.userRepo.save(user);
+    }
+
+
+    async findUser(userId:string): Promise<User>{
         const userExists:boolean = await this.userRepo.exists(user);
         if(userExists){
             throw new UserModelAlreadyExistsError()

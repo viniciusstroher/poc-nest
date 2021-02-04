@@ -1,27 +1,56 @@
 import { Inject } from "@nestjs/common";
-import { Model } from "src/domain/common/model";
-import { User } from "src/domain/model/user.model";
+import { Configuration } from "src/config/configuration";
+import { User, UserModelConstructorParams } from "src/domain/model/user.model";
 import { IUserRepository } from "src/domain/repository/user.repository.interface";
 import { Connection, EntityManager } from "typeorm";
 import { UserModelOrm } from "../orm/user.model.orm";
+import { UserMapper } from "./usermongoose.mapper";
+export class UserTypeOrmRepository implements IUserRepository, UserMapper{
 
-export class UserTypeOrmRepository implements IUserRepository{
+    constructor(@Inject(Configuration.getDatabaseSelectedProvider()) private connection: Connection){}
+    
+    toDomain(userModelOrm:UserModelOrm): User {
+        const params:UserModelConstructorParams = {
+            id: userModelOrm.id,
+            name: userModelOrm.name,
+            email: userModelOrm.email,
+            createdAt: new Date(userModelOrm.created_at),
+            deletedAt: new Date(userModelOrm.deleted_at)
+        }
 
-    constructor(@Inject('DATABASE_SQLITE') private connection: Connection){
+        return new User(params)
+    }
+    
+    findUserByEmail(email: string): Promise<User> {
+        return new Promise(resolve => {
+            this.connection.transaction(async entityManager => {
+                const userModelOrm:UserModelOrm = await entityManager.findOne(UserModelOrm, {email})
+
+                resolve(this.toDomain(userModelOrm));
+            }).catch(() => resolve(null));
+        })
     }
 
     async findUserById(userId: number): Promise<User> {
-        throw new Error("Method not implemented.");
+        return new Promise(resolve => {
+            this.connection.transaction(async entityManager => {
+                const userModelOrm:UserModelOrm = await entityManager.findOne(UserModelOrm, userId, {
+                    lock: {mode: 'pessimistic_write'},
+                })
+
+                resolve(this.toDomain(userModelOrm));
+            }).catch(() => resolve(null));
+        })
     }
     
     async exists(user: User): Promise<boolean> {
         return new Promise(resolve => {
             this.connection.transaction(async entityManager => {
-                const result:any = await entityManager.findOne(UserModelOrm, user.id.getId(), {
+                const userModelOrm:UserModelOrm = await entityManager.findOne(UserModelOrm, user.id.getId(), {
                     lock: {mode: 'pessimistic_write'},
                 })
 
-                if(result){
+                if(userModelOrm){
                     resolve(true);
                 }
                 resolve(false);
