@@ -1,15 +1,10 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { CONFIGURATION_MODULE } from './consts';
-
+import { ConfigModule, ConfigService } from '@nestjs/config';
 @Module({
-  imports: [ConfigModule.forRoot({envFilePath: '.env'})],
-  providers: [{
-    //criar objeto para passar pelo sistema
-    provide: CONFIGURATION_MODULE,
-        useFactory: () => {
-          // selectedDatabase: process.env.
-        }
-  }]
+  imports: [
+    ConfigModule.forRoot({envFilePath: './env'})
+  ],
+  providers: [ConfigModule, ConfigService],
+  exports: [ConfigService]
 })
 export class ConfigurationModule {}
