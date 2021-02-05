@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UserTypeOrmRepository } from '@infra/database/repository/user.typeorm.repository';
-import { UserService } from '@application/services/user/user.service';
-import { CreateUserParam } from '@application/services/user/user.service.dto';
-import { DatabaseModule } from '@infra/database/database.module';
+import { UserTypeOrmRepository } from 'src/infra/database/repository/user.typeorm.repository';
+import { UserService } from 'src/app/services/user/user.service';
+import { CreateUserParam } from 'src/app/services/user/user.service.dto';
+import { DatabaseModule } from 'src/infra/database/database.module';
 
 describe('UserService', () => {
   let service: UserService;
@@ -22,8 +22,8 @@ describe('UserService', () => {
       ],
       
     }).compile();
-
-    service = await module.get<UserService>(UserService);
+    
+    service = await module.resolve(UserService);
 
   });
 

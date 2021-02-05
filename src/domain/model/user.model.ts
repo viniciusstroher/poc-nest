@@ -1,5 +1,5 @@
 import { IsDate, IsEmail,  IsNotEmpty } from "class-validator";
-import { Model, ModelConstructorParams } from "../common/model";
+import { Model, ModelConstructorParams } from "src/domain/common/model";
 
 export type UserModelConstructorParams = ModelConstructorParams & {
     name:string,
