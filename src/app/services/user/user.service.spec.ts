@@ -1,9 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UserTypeOrmRepository } from '../../../infra/database/repository/user.typeorm.repository';
-import { UserService } from './user.service';
-import { CreateUserParam } from './user.service.dto';
-import { DatabaseModule } from '../../../infra/database/database.module';
-import { User } from 'src/domain/model/user.model';
+import { UserTypeOrmRepository } from '@infra/database/repository/user.typeorm.repository';
+import { UserService } from '@application/services/user/user.service';
+import { CreateUserParam } from '@application/services/user/user.service.dto';
+import { DatabaseModule } from '@infra/database/database.module';
 
 describe('UserService', () => {
   let service: UserService;
@@ -15,19 +14,17 @@ describe('UserService', () => {
       imports:[DatabaseModule],
       providers: [
         DatabaseModule,
-
         {
           provide: 'USER_REPOSITORY',
           useClass: UserTypeOrmRepository,
         },
-        
         UserService
       ],
       
     }).compile();
 
-    service = module.get<UserService>(UserService);
-    service = module.get<UserService>(UserService);
+    service = await module.get<UserService>(UserService);
+
   });
 
   it('should create user in user service', async () => {

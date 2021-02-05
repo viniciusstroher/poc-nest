@@ -1,13 +1,13 @@
 import { Inject } from "@nestjs/common";
-import { Configuration } from "src/config/configuration";
-import { User, UserModelConstructorParams } from "src/domain/model/user.model";
-import { IUserRepository } from "src/domain/repository/user.repository.interface";
-import { Connection, EntityManager } from "typeorm";
-import { UserModelOrm } from "../orm/user.model.orm";
-import { UserMapper } from "./usermongoose.mapper";
+import { Connection} from "typeorm";
+import { User, UserModelConstructorParams } from "@domain/model/user.model";
+import { IUserRepository } from "@domain/repository/user.repository.interface";
+import { UserModelOrm } from "@infra/database/orm/user.model.orm";
+import { UserMapper } from "@infra/database/repository/user.mapper";
+import { DATABASE_TYPEORM } from "@config/consts";
 export class UserTypeOrmRepository implements IUserRepository, UserMapper{
 
-    constructor(@Inject(Configuration.getDatabaseSelectedProvider()) private connection: Connection){}
+    constructor(@Inject(DATABASE_TYPEORM) private connection: Connection){}
     
     toDomain(userModelOrm:UserModelOrm): User {
         const params:UserModelConstructorParams = {

@@ -1,12 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { validate } from 'class-validator';
-import { User, UserModelConstructorParams } from '../../../domain/model/user.model';
-import { IUserRepository } from '../../../domain/repository/user.repository.interface';
-import { CreateUserParam } from './user.service.dto';
-import { Uuid } from '../../../infra/uuid.helper';
-import { UserModelAlreadyExistsError, UserModelValidateError } from '../../../domain/common/errors'; 
-import { UserMongooseRepository } from 'src/infra/database/repository/user.mongoose.repository';
-
+import { User, UserModelConstructorParams } from '@domain/model/user.model';
+import { IUserRepository } from '@domain/repository/user.repository.interface';
+import { CreateUserParam } from '@application/services/user/user.service.dto';
+import { Uuid } from '@infra/uuid.helper';
+import { UserModelAlreadyExistsError, UserModelValidateError } from '@domain/common/errors'; 
+import { UserTypeOrmRepository } from '@infra/database/repository/user.typeorm.repository';
 @Injectable()
 export class UserService {
     userRepo:IUserRepository
@@ -27,7 +26,7 @@ export class UserService {
             //se der error adicionar um novo erro
             throw new UserModelValidateError(paramsModel, validateUserErrors)
         }
-        
+
         const userExists:boolean = await this.userRepo.exists(user);
         if(userExists){
             throw new UserModelAlreadyExistsError()
@@ -36,13 +35,7 @@ export class UserService {
         await this.userRepo.save(user);
     }
 
-
-    async findUser(userId:string): Promise<User>{
-        const userExists:boolean = await this.userRepo.exists(user);
-        if(userExists){
-            throw new UserModelAlreadyExistsError()
-        }
-
-        await this.userRepo.save(user);
+    async findUserByEmail(email:string): Promise<User>{
+        return await this.userRepo.findUserByEmail(email);
     }
 }

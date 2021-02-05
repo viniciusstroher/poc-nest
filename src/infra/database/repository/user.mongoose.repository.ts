@@ -1,14 +1,13 @@
 import { Inject } from "@nestjs/common";
 import { Connection } from "mongoose";
-import { Configuration, DATABASE_SELECTED_PROVIDER } from "src/config/configuration";
-import { DATABASE_MONGO } from "src/config/consts";
-import { Model } from "src/domain/common/model";
-import { User } from "src/domain/model/user.model";
-import { IUserRepository } from "src/domain/repository/user.repository.interface";
-import { UserMapper } from "./usermongoose.mapper";
+import { DATABASE_MONGOOSE } from "@config/consts";
+import { Model } from "@domain/common/model";
+import { User } from "@domain/model/user.model";
+import { IUserRepository } from "@domain/repository/user.repository.interface";
+import { UserMapper } from "@infra/database/repository/user.mapper";
 export class UserMongooseRepository implements IUserRepository, UserMapper{
     
-    constructor(@Inject(Configuration.getDatabaseSelectedProvider()) private connection: Connection){}
+    constructor(@Inject(DATABASE_MONGOOSE) private connection: Connection){}
     
     toDomain(): User {
         throw new Error("Method not implemented.");
