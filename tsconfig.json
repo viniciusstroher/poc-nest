@@ -11,8 +11,13 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
+    "rootDir" : "./",
     "paths": {
-      "@app/*": ["./src/*"]
-    },
+      "@application/*": ["./src/app/*"],
+      "@config/*": ["./src/config/*"],
+      "@domain/*": ["./src/domain/*"],
+      "@infra/*": ["./src/infra/*"],
+      "@tests/*": ["./tests/*"]
+    }
   }
 }

@@ -7,7 +7,8 @@ import { UserMapper } from "@infra/database/repository/user.mapper";
 import { DATABASE_TYPEORM } from "@config/consts";
 export class UserTypeOrmRepository implements IUserRepository, UserMapper{
 
-    constructor(@Inject(DATABASE_TYPEORM) private connection: Connection){}
+    constructor(@Inject(DATABASE_TYPEORM) private connection: Connection){
+    }
     
     toDomain(userModelOrm:UserModelOrm): User {
         const params:UserModelConstructorParams = {

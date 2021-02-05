@@ -15,6 +15,7 @@ import { UserMongooseRepository } from './infra/database/repository/user.mongoos
       provide: 'USER_REPOSITORY',
       useClass: UserMongooseRepository,
     },
-    UserService],
+    UserService
+  ],
 })
 export class AppModule {}
