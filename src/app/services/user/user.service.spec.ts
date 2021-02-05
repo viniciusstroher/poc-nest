@@ -23,7 +23,7 @@ describe('UserService', () => {
     }).compile();
 
     service = module.get<UserService>(UserService);
-    console.log(service)
+
   });
 
   it('should create user in user service', async () => {

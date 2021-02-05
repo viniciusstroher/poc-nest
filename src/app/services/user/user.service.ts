@@ -10,7 +10,7 @@ import { UserModelAlreadyExistsError, UserModelValidateError } from '@domain/com
 export class UserService {
 
     constructor(@Inject('USER_REPOSITORY') private userRepo:IUserRepository){
-        console.log('userRepo',userRepo)
+        // console.log('userRepo',userRepo)
     }
 
     async createUser(params:CreateUserParam):Promise<void>{
