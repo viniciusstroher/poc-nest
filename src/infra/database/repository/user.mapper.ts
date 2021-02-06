@@ -3,4 +3,5 @@ import { UserModelOrm } from "../orm/user.model.orm";
 
 export interface UserMapper{
     toDomain(userModelOrm:UserModelOrm): User
+    toPersistense(user:User): UserModelOrm
 }

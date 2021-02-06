@@ -20,9 +20,9 @@ export class DatabaseConnectionTypeOrm {
 
   export class DatabaseConnectionMongoose {
     static connection
-    static async getInstance(){
+    static getInstance(){
       if(!DatabaseConnectionMongoose.connection){
-        DatabaseConnectionMongoose.connection = await mongoose.connect(`mongodb://localhost/${DATABASE_NAME}`)
+        DatabaseConnectionMongoose.connection = mongoose.connect(`mongodb://localhost/${DATABASE_NAME}`)
       }
       return DatabaseConnectionMongoose.connection
     }

@@ -9,6 +9,16 @@ export class UserTypeOrmRepository implements IUserRepository, UserMapper{
 
     constructor(@Inject(DATABASE_TYPEORM) private connection: Connection){
     }
+
+    toPersistense(user: User): UserModelOrm {
+        const newUserModelOrm:UserModelOrm = new UserModelOrm()
+        newUserModelOrm.id = user.id.getId()
+        newUserModelOrm.name = user.name
+        newUserModelOrm.email = user.email
+        newUserModelOrm.created_at = user.createdAt ? user.createdAt.toISOString() : null
+        newUserModelOrm.deleted_at = user.deletedAt ? user.deletedAt.toISOString() : null
+        return newUserModelOrm
+    }
     
     toDomain(userModelOrm:UserModelOrm): User {
         const params:UserModelConstructorParams = {
@@ -22,19 +32,19 @@ export class UserTypeOrmRepository implements IUserRepository, UserMapper{
         return new User(params)
     }
     
-    findUserByEmail(email: string): Promise<User> {
-        return new Promise(resolve => {
-            this.connection.transaction(async entityManager => {
+    async findUserByEmail(email: string): Promise<User> {
+        return new Promise(async resolve => {
+            await this.connection.transaction(async entityManager => {
                 const userModelOrm:UserModelOrm = await entityManager.findOne(UserModelOrm, {email})
-
+                
                 resolve(this.toDomain(userModelOrm));
-            }).catch(() => resolve(null));
+            }).catch((err) => { console.log(err); resolve(null)});
         })
     }
 
-    async findUserById(userId: number): Promise<User> {
-        return new Promise(resolve => {
-            this.connection.transaction(async entityManager => {
+    async findUserById(userId: string): Promise<User> {
+        return new Promise(async resolve => {
+            await this.connection.transaction(async entityManager => {
                 const userModelOrm:UserModelOrm = await entityManager.findOne(UserModelOrm, userId, {
                     lock: {mode: 'pessimistic_write'},
                 })
@@ -45,8 +55,8 @@ export class UserTypeOrmRepository implements IUserRepository, UserMapper{
     }
     
     async exists(user: User): Promise<boolean> {
-        return new Promise(resolve => {
-            this.connection.transaction(async entityManager => {
+        return new Promise(async resolve => {
+            await this.connection.transaction(async entityManager => {
                 const userModelOrm:UserModelOrm = await entityManager.findOne(UserModelOrm, user.id.getId(), {
                     lock: {mode: 'pessimistic_write'},
                 })
@@ -61,20 +71,11 @@ export class UserTypeOrmRepository implements IUserRepository, UserMapper{
     }
 
     async save(user: User): Promise<void> {
-        return new Promise(resolve => {
-            this.connection.transaction(async entityManager => {
-                const newUserModelOrm:UserModelOrm = new UserModelOrm()
-
-                newUserModelOrm.id = user.id.getId()
-                newUserModelOrm.name = user.name
-                newUserModelOrm.email = user.email
-                newUserModelOrm.created_at = user.createdAt ? user.createdAt.toISOString() : null
-                newUserModelOrm.deleted_at = user.deletedAt ? user.deletedAt.toISOString() : null
-
-                await entityManager.save(newUserModelOrm)
-
-                resolve();
+        return new Promise(async resolve => {
+            await this.connection.transaction(async entityManager => {
+                await entityManager.save(this.toPersistense(user))
             });
+            resolve()
         });
     }
     

@@ -5,9 +5,13 @@ import { Model } from "@domain/common/model";
 import { User } from "@domain/model/user.model";
 import { IUserRepository } from "@domain/repository/user.repository.interface";
 import { UserMapper } from "@infra/database/repository/user.mapper";
+import { UserModelOrm } from "../orm/user.model.orm";
 export class UserMongooseRepository implements IUserRepository, UserMapper{
     
     constructor(@Inject(DATABASE_MONGOOSE) private connection: Connection){}
+    toPersistense(user: User): UserModelOrm {
+        throw new Error("Method not implemented.");
+    }
     
     toDomain(): User {
         throw new Error("Method not implemented.");
@@ -17,7 +21,7 @@ export class UserMongooseRepository implements IUserRepository, UserMapper{
         throw new Error("Method not implemented.");
     }
 
-    async findUserById(userId: number): Promise<User> {
+    async findUserById(userId: string): Promise<User> {
         throw new Error("Method not implemented.");
     }
     

@@ -39,16 +39,10 @@ describe('UserService', () => {
   });
 
   it('should find by email user in user service', async () => {
-    // const email:string = "viniciusferreirawk@gmail.com"
-    // const user:User = await service.findUserByEmail(email)
+    const email:string = "viniciusferreirawk@gmail.com"
+    const user:User = await service.findUserByEmail(email)
     
-    // expect(user).toBeInstanceOf(User);
-    const params:CreateUserParam = {
-      name: "Vinicius",
-      email: "viniciusferreirawk@gmail.com"
-    }
-    
-    await service.createUser(params)
+    expect(user).toBeInstanceOf(User);
   });
 
   
