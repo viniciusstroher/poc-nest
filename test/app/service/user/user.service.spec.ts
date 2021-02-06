@@ -3,6 +3,7 @@ import { UserTypeOrmRepository } from '@infra/database/repository/user.typeorm.r
 import { UserService } from '@application/services/user/user.service';
 import { CreateUserParam } from '@application/services/user/user.service.dto';
 import { DatabaseModule } from '@infra/database/database.module';
+import { User } from '@domain/model/user.model';
 
 describe('UserService', () => {
   let service: UserService;
@@ -35,6 +36,19 @@ describe('UserService', () => {
     await service.createUser(params)
     
     expect(service).toBeDefined();
+  });
+
+  it('should find by email user in user service', async () => {
+    // const email:string = "viniciusferreirawk@gmail.com"
+    // const user:User = await service.findUserByEmail(email)
+    
+    // expect(user).toBeInstanceOf(User);
+    const params:CreateUserParam = {
+      name: "Vinicius",
+      email: "viniciusferreirawk@gmail.com"
+    }
+    
+    await service.createUser(params)
   });
 
   

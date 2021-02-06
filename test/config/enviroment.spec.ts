@@ -1,6 +1,6 @@
 import { UserService } from '@application/services/user/user.service';
 import { CreateUserParam } from '@application/services/user/user.service.dto';
-import { Enviroment } from './enviroment';
+import { Enviroment } from '../../src/config/enviroment';
 
 describe('Config', () => {
 
