@@ -1,6 +1,6 @@
 import { DATABASE_NAME } from "@config/consts"
 import { createConnection } from "typeorm"
-import { UserModelOrm } from "@infra/database/orm/user.model.orm"
+import { UserModelOrm } from "@infra/orm/user.model.orm"
 import mongoose from 'mongoose'
 
 export class DatabaseConnectionTypeOrm {

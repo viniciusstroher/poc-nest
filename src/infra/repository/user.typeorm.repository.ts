@@ -2,9 +2,10 @@ import { Inject } from "@nestjs/common";
 import { Connection, EntityManager, getManager} from "typeorm";
 import { User, UserModelConstructorParams } from "@domain/model/user.model";
 import { IUserRepository } from "@domain/repository/user.repository.interface";
-import { UserModelOrm } from "@infra/database/orm/user.model.orm";
-import { UserMapper } from "@infra/database/repository/user.mapper";
+import { UserModelOrm } from "@infra/orm/user.model.orm";
+import { UserMapper } from "@infra/mapper/user.mapper";
 import { DATABASE_TYPEORM_CONECTION, DATABASE_TYPEORM_MANAGER } from "@config/consts";
+
 export class UserTypeOrmRepository implements IUserRepository, UserMapper{
     constructor(@Inject(DATABASE_TYPEORM_CONECTION) private connection: Connection, 
     @Inject(DATABASE_TYPEORM_MANAGER) private manager: EntityManager){ }

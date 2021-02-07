@@ -1,10 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UserTypeOrmRepository } from '@infra/database/repository/user.typeorm.repository';
 import { UserService } from '@application/services/user/user.service';
 import { CreateUserParam } from '@application/services/user/user.service.dto';
 import { DatabaseModule } from '@infra/database/database.module';
 import { User } from '@domain/model/user.model';
-import { Uuid } from '@infra/uuid.helper';
+import { UserRepositoryTypeOrmProvider } from '@infra/repository/repository.factories';
 
 describe('UserService', () => {
   let service: UserService;
@@ -16,10 +15,7 @@ describe('UserService', () => {
       imports:[DatabaseModule],
       providers: [
         UserService,
-        {
-          provide: 'USER_REPOSITORY',
-          useClass: UserTypeOrmRepository,
-        },
+        UserRepositoryTypeOrmProvider
       ],
       
     }).compile();

@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserService } from './app/services/user/user.service';
 import { DatabaseModule } from './infra/database/database.module';
-import { UserMongooseRepository } from './infra/database/repository/user.mongoose.repository';
+import { UserMongooseRepository } from './infra/repository/user.mongoose.repository';
 
 @Module({
   imports: [DatabaseModule],

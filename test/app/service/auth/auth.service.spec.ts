@@ -1,10 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UserTypeOrmRepository } from '@infra/database/repository/user.typeorm.repository';
+import { UserTypeOrmRepository } from '@infra/repository/user.typeorm.repository';
 import { UserService } from '@application/services/user/user.service';
 import { CreateUserParam } from '@application/services/user/user.service.dto';
 import { DatabaseModule } from '@infra/database/database.module';
 import { User } from '@domain/model/user.model';
-import { Uuid } from '@infra/uuid.helper';
 
 describe('AuthService', () => {
   let service: UserService;
