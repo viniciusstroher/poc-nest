@@ -1,3 +1,4 @@
+import { UserRepositoryTypeOrmProvider } from '@infra/repository/repository.factories';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -11,10 +12,7 @@ import { UserMongooseRepository } from './infra/repository/user.mongoose.reposit
   providers: [
     AppService, 
     //provider para usar user repository com a implementação do MONGOOSE
-    {
-      provide: 'USER_REPOSITORY',
-      useClass: UserMongooseRepository,
-    },
+    UserRepositoryTypeOrmProvider,
     UserService
   ],
 })
