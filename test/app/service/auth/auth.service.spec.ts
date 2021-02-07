@@ -4,6 +4,7 @@ import { UserService } from '@application/services/user/user.service';
 import { CreateUserParam } from '@application/services/user/user.service.dto';
 import { DatabaseModule } from '@infra/database/database.module';
 import { User } from '@domain/model/user.model';
+import { UserRepositoryTypeOrmProvider } from '@infra/repository/user.repository.factories';
 
 describe('AuthService', () => {
   let service: UserService;
@@ -15,10 +16,7 @@ describe('AuthService', () => {
       imports:[DatabaseModule],
       providers: [
         UserService,
-        {
-          provide: 'USER_REPOSITORY',
-          useClass: UserTypeOrmRepository,
-        },
+        UserRepositoryTypeOrmProvider,
       ],
       
     }).compile();
@@ -37,22 +35,5 @@ describe('AuthService', () => {
     
     expect(service).toBeDefined();
   });
-
-  it('should find by email user in user service', async () => {
-    const email:string = "viniciusferreirawk@gmail.com"
-    const user:User = await service.findUserByEmail(email)
-    
-    expect(user).toBeInstanceOf(User);
-  });
-
-  it('should find by id user in user service', async () => {
-    const email:string = "viniciusferreirawk@gmail.com"
-    const userByEmail:User = await service.findUserByEmail(email)
-    const userById:User = await service.findUserById(userByEmail.id.getId())
-
-    expect(userById).toBeInstanceOf(User);
-    expect(userByEmail.id.getId()).toBe(userById.id.getId());
-  });
-
   
 });

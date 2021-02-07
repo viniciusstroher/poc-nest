@@ -1,4 +1,4 @@
-import { User, UserModelConstructorParams } from './user.model';
+import { User, UserModelConstructorParams } from '../../../src/domain/model/user.model';
 import { validate } from 'class-validator';
 import { Uuid } from '@infra/uuid.helper';
 
