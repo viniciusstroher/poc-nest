@@ -1,6 +1,6 @@
 import { Inject } from "@nestjs/common";
 import { Connection } from "mongoose";
-import { DATABASE_MONGOOSE } from "@config/consts";
+import { DATABASE_MONGOOSE_CONECTION } from "@config/consts";
 import { Model } from "@domain/common/model";
 import { User } from "@domain/model/user.model";
 import { IUserRepository } from "@domain/repository/user.repository.interface";
@@ -8,7 +8,7 @@ import { UserMapper } from "@infra/database/repository/user.mapper";
 import { UserModelOrm } from "../orm/user.model.orm";
 export class UserMongooseRepository implements IUserRepository, UserMapper{
     
-    constructor(@Inject(DATABASE_MONGOOSE) private connection: Connection){}
+    constructor(@Inject(DATABASE_MONGOOSE_CONECTION) private connection: Connection){}
     toPersistense(user: User): UserModelOrm {
         throw new Error("Method not implemented.");
     }

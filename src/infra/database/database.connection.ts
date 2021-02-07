@@ -10,6 +10,7 @@ export class DatabaseConnectionTypeOrm {
         DatabaseConnectionTypeOrm.connection = await createConnection({
           type: 'sqlite',
           database: `${DATABASE_NAME}_db.sqlite3`,
+          // database: ':memory:',
           entities: [ UserModelOrm ],
           synchronize: true,
         })

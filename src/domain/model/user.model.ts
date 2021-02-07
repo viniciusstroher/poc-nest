@@ -3,7 +3,8 @@ import { Model, ModelConstructorParams } from "@domain/common/model";
 
 export type UserModelConstructorParams = ModelConstructorParams & {
     name:string,
-    email:string 
+    email:string,
+    token?:string
 }
 
 export class User extends Model{
@@ -13,6 +14,8 @@ export class User extends Model{
     @IsNotEmpty()
     @IsEmail()
     email:string
+
+    token:string
 
     constructor(params: UserModelConstructorParams){
         const parentParams: ModelConstructorParams = {
@@ -24,5 +27,9 @@ export class User extends Model{
         super(parentParams)
         this.name = params.name
         this.email = params.email
+    }
+
+    setToken(token:string){
+        this.token = token
     }
 }

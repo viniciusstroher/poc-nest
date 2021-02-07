@@ -6,7 +6,7 @@ import { DatabaseModule } from '@infra/database/database.module';
 import { User } from '@domain/model/user.model';
 import { Uuid } from '@infra/uuid.helper';
 
-describe('UserService', () => {
+describe('AuthService', () => {
   let service: UserService;
   let repository
 

@@ -39,4 +39,8 @@ export class UserService {
     async findUserByEmail(email:string): Promise<User>{
         return await this.userRepo.findUserByEmail(email);
     }
+
+    async findUserById(email:string): Promise<User>{
+        return await this.userRepo.findUserById(email);
+    }
 }
