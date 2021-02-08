@@ -1,7 +1,7 @@
 import { Inject } from "@nestjs/common";
 import { Connection, EntityManager, getManager} from "typeorm";
 import { User, UserModelConstructorParams } from "@domain/model/user.model";
-import { IUserRepository } from "@domain/repository/user.repository.interface";
+import { IUserRepository } from "@application/repository/user.repository.interface";
 import { UserModelOrm } from "@infra/orm/user.model.orm";
 import { UserMapper } from "@infra/mapper/user.mapper";
 import { DATABASE_TYPEORM_CONECTION, DATABASE_TYPEORM_MANAGER } from "@config/consts";
