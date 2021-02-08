@@ -12,6 +12,9 @@ export class UserSchemaMongoose extends Document {
 	@Prop({ type: String, required: true })
 	name
 
+	@Prop({ type: String, required: false })
+	token
+
 	@Prop({ type: String, required: true })
 	created_at
 

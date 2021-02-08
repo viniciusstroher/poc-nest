@@ -1,4 +1,4 @@
-import { UserRepositoryTypeOrmProvider } from '@infra/repository/user.repository.factories';
+import { UserRepositoryTypeOrmProvider } from '@infra/factories/user.repository.factories';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { UserMongooseRepository } from '@infra/repository/user.mongoose.repository';
-import { UserTypeOrmRepository } from './user.typeorm.repository';
+import { UserTypeOrmRepository } from '@infra/repository/user.typeorm.repository';
 
 //criar factory de array para importar no app.module quando tiver todos pra mongo e typeorm
 

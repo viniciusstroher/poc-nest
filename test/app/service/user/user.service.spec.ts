@@ -3,7 +3,7 @@ import { UserService } from '@application/services/user/user.service';
 import { CreateUserParam } from '@application/services/user/user.service.dto';
 import { DatabaseModule } from '@infra/database/database.module';
 import { User } from '@domain/model/user.model';
-import { UserRepositoryTypeOrmProvider } from '@infra/repository/user.repository.factories';
+import { UserRepositoryTypeOrmProvider } from '@infra/factories/user.repository.factories';
 
 describe('UserService', () => {
   let service: UserService;

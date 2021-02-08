@@ -14,6 +14,9 @@ export class UserModelOrm {
   email: string;
 
   @Column({nullable: true })
+  token: string;
+
+  @Column({nullable: true })
   created_at: string;
 
   @Column({nullable: true })

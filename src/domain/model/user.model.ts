@@ -32,4 +32,8 @@ export class User extends Model{
     setToken(token:string){
         this.token = token
     }
+
+    getToken(): string{
+        return this.token
+    }
 }

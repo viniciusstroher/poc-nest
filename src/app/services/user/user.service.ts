@@ -4,7 +4,7 @@ import { User, UserModelConstructorParams } from '@domain/model/user.model';
 import { IUserRepository } from '@domain/repository/user.repository.interface';
 import { CreateUserParam } from '@application/services/user/user.service.dto';
 import { Uuid } from '@infra/uuid.helper';
-import { UserModelAlreadyExistsError, UserModelValidateError } from '@domain/common/errors'; 
+import { UserModelAlreadyExistsError, UserModelValidateError } from '@domain/errors'; 
 import { USER_REPOSITORY } from '@config/consts';
 
 @Injectable()

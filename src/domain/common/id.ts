@@ -1,5 +1,5 @@
 import { IObjectValue } from "./objectvalue.interface";
-import { EmptyIdDomainError } from "./errors";
+import { EmptyIdDomainError } from "../errors";
 import { IsDate, IsNotEmpty } from "class-validator";
 import { Uuid } from "../../infra/uuid.helper";
 
