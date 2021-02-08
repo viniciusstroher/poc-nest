@@ -1,6 +1,6 @@
 import { User, UserModelConstructorParams } from '@domain/model/user.model';
 import { validate } from 'class-validator';
-import { Uuid } from '@infra/uuid.helper';
+import { Uuid } from '@infra/helpers/uuid.helper';
 
 
 describe('User Model (domain)', () => {

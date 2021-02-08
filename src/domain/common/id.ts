@@ -1,7 +1,7 @@
 import { IObjectValue } from "./objectvalue.interface";
 import { EmptyIdDomainError } from "../errors";
 import { IsDate, IsNotEmpty } from "class-validator";
-import { Uuid } from "../../infra/uuid.helper";
+import { Uuid } from "../../infra/helpers/uuid.helper";
 
 export class Id implements IObjectValue{
     
