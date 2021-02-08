@@ -20,7 +20,7 @@ export class UserTypeOrmRepository implements IUserRepository{
     async findUserById(userId: string): Promise<User> {
         return new Promise(async resolve => {
             let userModelOrm:UserModelOrm = await this.manager.findOne(UserModelOrm, userId)
-            resolve(this.toDomain(userModelOrm));
+            resolve(UserMapper.toDomain(userModelOrm));
         })
     }
     
@@ -37,7 +37,13 @@ export class UserTypeOrmRepository implements IUserRepository{
 
     async save(user: User): Promise<void> {
         return new Promise(async resolve => {
-            await this.manager.save(UserMapper.toPersistense(user))
+            const userExists:boolean = await this.exists(user)
+            if(!userExists){
+                await this.manager.save(UserMapper.toPersistense(user))
+            }else{
+                await this.manager.update(UserModelOrm, {id: user.id.getId()}, UserMapper.toPersistense(user))
+            }
+            
             resolve()
         });
     }

@@ -26,7 +26,7 @@ export class AuthService {
         if(!user){
             throw AuthServiceUserNotFoundError
         }
-        
+   
         user.setToken(Uuid.generate())
 
         await this.userRepo.save(user)

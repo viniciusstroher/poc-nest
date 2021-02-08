@@ -30,7 +30,16 @@ describe('AuthService', () => {
     const user:User = await userService.findUserById(userId)
 
     expect(authService).toBeDefined();
-    expect(user.getToken()).toBeNull();
+    expect(user.getToken()).not.toBe(null);
+  });
+
+  it('should get token', async () => {
+    const userId:string = "27047c18-c5f8-4dc6-9310-099593df3997";
+    const token:string = await authService.getToken(userId)
+    const user:User = await userService.findUserById(userId)
+
+    expect(authService).toBeDefined();
+    expect(user.getToken()).toBe(token);
   });
   
 });
